@@ -1,14 +1,19 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 import BookingCalendar from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.component'
+import { CalendarProvider } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
 import { BookingCalendarUtils } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.utils'
 import { BrowserRouter } from 'react-router-dom'
 
 describe('BookingCalendar component', () => {
+  const onChangeSpy = jest.fn()
+
   beforeEach(() => {
     render(
       <BrowserRouter>
-        <BookingCalendar />
+        <CalendarProvider onChange={onChangeSpy}>
+          <BookingCalendar />
+        </CalendarProvider>
       </BrowserRouter>,
     )
   })
@@ -88,25 +93,28 @@ describe('BookingCalendar component', () => {
 
     userEvent.click(nextMonthButton)
 
-    const day1 = screen.getByTestId('month-day-button-1')
-    const day5 = screen.getByTestId('month-day-button-5')
+    const day10 = screen.getByTestId('month-day-button-10')
+    const day15 = screen.getByTestId('month-day-button-15')
 
-    userEvent.click(day1)
+    userEvent.click(day10)
 
-    expect(day1).toHaveStyle('background-color: #fff')
+    expect(day10).toHaveStyle('background-color: #fff')
 
-    userEvent.click(day5)
+    userEvent.click(day15)
 
-    expect(day5).toHaveStyle('background-color: #fff')
+    expect(day15).toHaveStyle('background-color: #fff')
 
-    const day2 = screen.getByTestId('month-day-button-2')
-    expect(day2).toHaveStyle('background-color: rgba(255, 255, 255, 0.3)')
+    const day11 = screen.getByTestId('month-day-button-11')
+    expect(day11).toHaveStyle('background-color: rgba(255, 255, 255, 0.3)')
 
-    const day3 = screen.getByTestId('month-day-button-3')
-    expect(day3).toHaveStyle('background-color: rgba(255, 255, 255, 0.3)')
+    const day12 = screen.getByTestId('month-day-button-12')
+    expect(day12).toHaveStyle('background-color: rgba(255, 255, 255, 0.3)')
 
-    const day4 = screen.getByTestId('month-day-button-4')
-    expect(day4).toHaveStyle('background-color: rgba(255, 255, 255, 0.3)')
+    const day13 = screen.getByTestId('month-day-button-13')
+    expect(day13).toHaveStyle('background-color: rgba(255, 255, 255, 0.3)')
+
+    const day14 = screen.getByTestId('month-day-button-14')
+    expect(day14).toHaveStyle('background-color: rgba(255, 255, 255, 0.3)')
   })
 })
 
@@ -116,7 +124,7 @@ describe('BookingCalendar utils', () => {
 
     const output = BookingCalendarUtils.generateDaysOfMonth(input)
 
-    expect(output).toHaveLength(30)
+    expect(output).toHaveLength(42)
   })
 
   it('should get the correct name of the month', () => {
