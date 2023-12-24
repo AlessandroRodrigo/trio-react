@@ -1,8 +1,5 @@
 import { ChevronLeft, ChevronRight } from '@mui/icons-material'
-import {
-  CalendarProvider,
-  useCalendarContext,
-} from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
+import { useCalendarContext } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
 import { BookingCalendarConstants } from './BookingCalendar.constants'
 import {
   ActionButton,
@@ -21,13 +18,11 @@ import { BookingCalendarUtils } from './BookingCalendar.utils'
 
 export default function BookingCalendar() {
   return (
-    <CalendarProvider>
-      <Wrapper>
-        <CalendarHeader />
+    <Wrapper>
+      <CalendarHeader />
 
-        <CalendarBody />
-      </Wrapper>
-    </CalendarProvider>
+      <CalendarBody />
+    </Wrapper>
   )
 }
 
@@ -72,7 +67,7 @@ function CalendarHeader() {
 }
 
 function CalendarBody() {
-  const { currentDate, selectedDays, setSelectedDays } = useCalendarContext()
+  const { currentDate, selectedDays, setSelectedDays, onChange } = useCalendarContext()
   const daysOfMonth = BookingCalendarUtils.generateDaysOfMonth(currentDate)
 
   function handleSelectDate(date: Date) {
@@ -80,6 +75,7 @@ function CalendarBody() {
       setSelectedDays({ start: date, end: null })
     } else if (selectedDays.end === null) {
       setSelectedDays({ start: selectedDays.start, end: date })
+      onChange({ start: selectedDays.start, end: date })
     } else {
       setSelectedDays({ start: date, end: null })
     }
