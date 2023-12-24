@@ -1,5 +1,8 @@
 import { ChevronLeft, ChevronRight } from '@mui/icons-material'
-import { createContext, useContext, useState } from 'react'
+import {
+  CalendarProvider,
+  useCalendarContext,
+} from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
 import { BookingCalendarConstants } from './BookingCalendar.constants'
 import {
   ActionButton,
@@ -16,58 +19,20 @@ import {
 } from './BookingCalendar.styles'
 import { BookingCalendarUtils } from './BookingCalendar.utils'
 
-const CalendarContext = createContext<{
-  currentDate: Date
-  selectedDays: {
-    start: Date | null
-    end: Date | null
-  }
-  setCurrentDate: (date: Date) => void
-  setSelectedDays: (dates: { start: Date | null; end: Date | null }) => void
-}>({
-  currentDate: new Date(),
-  selectedDays: {
-    start: null,
-    end: null,
-  },
-  setCurrentDate: () => {
-    throw new Error('setCurrentDate function must be overridden')
-  },
-  setSelectedDays: () => {
-    throw new Error('setSelectedDays function must be overridden')
-  },
-})
-
 export default function BookingCalendar() {
-  const [currentDate, setCurrentDate] = useState(new Date())
-  const [selectedDays, setSelectedDays] = useState<{
-    start: Date | null
-    end: Date | null
-  }>({
-    start: null,
-    end: null,
-  })
-
   return (
-    <CalendarContext.Provider
-      value={{
-        currentDate,
-        selectedDays,
-        setCurrentDate,
-        setSelectedDays,
-      }}
-    >
+    <CalendarProvider>
       <Content>
         <CalendarHeader />
 
         <CalendarBody />
       </Content>
-    </CalendarContext.Provider>
+    </CalendarProvider>
   )
 }
 
 function CalendarHeader() {
-  const { currentDate, setCurrentDate } = useContext(CalendarContext)
+  const { currentDate, setCurrentDate } = useCalendarContext()
   const monthName = BookingCalendarUtils.getMonthName(currentDate.getMonth())
   const year = currentDate.getFullYear()
   const shouldDisablePrevMonthButton =
@@ -106,7 +71,7 @@ function CalendarHeader() {
 }
 
 function CalendarBody() {
-  const { currentDate, selectedDays, setSelectedDays } = useContext(CalendarContext)
+  const { currentDate, selectedDays, setSelectedDays } = useCalendarContext()
   const daysOfMonth = BookingCalendarUtils.generateDaysOfMonth(currentDate)
 
   function handleSelectDate(date: Date) {
