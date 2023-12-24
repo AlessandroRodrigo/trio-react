@@ -6,8 +6,16 @@ function getMonthName(monthNumber: number) {
 }
 
 function generateDaysOfMonth(date: Date): Date[] {
-  const startOfMonth = dayjs(date).startOf('month')
-  const endOfMonth = dayjs(date).endOf('month')
+  let startOfMonth = dayjs(date).startOf('month')
+  let endOfMonth = dayjs(date).endOf('month')
+
+  if (startOfMonth.day() !== 0) {
+    startOfMonth = startOfMonth.day(0).subtract(0, 'day')
+  }
+
+  if (endOfMonth.day() !== 6) {
+    endOfMonth = endOfMonth.day(6).add(0, 'days')
+  }
 
   const days = []
   let day = startOfMonth
