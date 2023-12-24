@@ -1,18 +1,20 @@
 import { PropsWithChildren, createContext, useContext, useState } from 'react'
 
-type TSelectedDays = {
+export type TSelectedDate = {
   start: Date | null
   end: Date | null
 }
 
+type ProviderProps = {
+  onChange: (dates: TSelectedDate) => void
+}
+
 type TCalendarContext = {
   currentDate: Date
-  selectedDays: {
-    start: Date | null
-    end: Date | null
-  }
+  selectedDays: TSelectedDate
   setCurrentDate: (date: Date) => void
-  setSelectedDays: (dates: TSelectedDays) => void
+  setSelectedDays: (dates: TSelectedDate) => void
+  onChange: ProviderProps['onChange']
 } | null
 
 const CalendarContext = createContext<TCalendarContext>(null)
@@ -27,9 +29,9 @@ export function useCalendarContext() {
   return context
 }
 
-export function CalendarProvider({ children }: PropsWithChildren) {
+export function CalendarProvider({ children, onChange }: PropsWithChildren<ProviderProps>) {
   const [currentDate, setCurrentDate] = useState(new Date())
-  const [selectedDays, setSelectedDays] = useState<TSelectedDays>({
+  const [selectedDays, setSelectedDays] = useState<TSelectedDate>({
     start: null,
     end: null,
   })
@@ -41,6 +43,7 @@ export function CalendarProvider({ children }: PropsWithChildren) {
         selectedDays,
         setCurrentDate,
         setSelectedDays,
+        onChange,
       }}
     >
       {children}
