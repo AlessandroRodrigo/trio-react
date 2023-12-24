@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { TSelectedDate } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
 
 function getMonthName(monthNumber: number) {
   return new Date(0, monthNumber).toLocaleString('en', { month: 'long' })
@@ -53,6 +54,10 @@ function isBetween(date: Date, startDate: Date, endDate: Date) {
   return dayjs(date).isAfter(startDate, 'day') && dayjs(date).isBefore(endDate, 'day')
 }
 
+function getTotalDays(date: TSelectedDate) {
+  return dayjs(date.end).diff(date.start, 'day')
+}
+
 export const BookingCalendarUtils = {
   getMonthName,
   generateDaysOfMonth,
@@ -63,4 +68,5 @@ export const BookingCalendarUtils = {
   isSameMonth,
   isSameYear,
   isBetween,
+  getTotalDays,
 }
