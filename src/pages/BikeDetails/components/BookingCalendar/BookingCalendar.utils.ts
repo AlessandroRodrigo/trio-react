@@ -19,14 +19,6 @@ function generateDaysOfMonth(date: Date): Date[] {
   return days
 }
 
-function shouldDisablePrevMonthButton(currentDate: Date) {
-  const date = new Date()
-
-  return (
-    currentDate.getMonth() === date.getMonth() && currentDate.getFullYear() === date.getFullYear()
-  )
-}
-
 function shouldDisableDayButton(day: Date) {
   return dayjs(day).isBefore(dayjs(), 'day')
 }
@@ -45,6 +37,18 @@ function isSameDay(...dates: Date[]) {
   return restDates.every((date) => dayjs(firstDate).isSame(date, 'day'))
 }
 
+function isSameMonth(...dates: Date[]) {
+  const [firstDate, ...restDates] = dates
+
+  return restDates.every((date) => dayjs(firstDate).isSame(date, 'month'))
+}
+
+function isSameYear(...dates: Date[]) {
+  const [firstDate, ...restDates] = dates
+
+  return restDates.every((date) => dayjs(firstDate).isSame(date, 'year'))
+}
+
 function isBetween(date: Date, startDate: Date, endDate: Date) {
   return dayjs(date).isAfter(startDate, 'day') && dayjs(date).isBefore(endDate, 'day')
 }
@@ -52,10 +56,11 @@ function isBetween(date: Date, startDate: Date, endDate: Date) {
 export const BookingCalendarUtils = {
   getMonthName,
   generateDaysOfMonth,
-  shouldDisablePrevMonthButton,
   shouldDisableDayButton,
   addMonths,
   subtractMonths,
   isSameDay,
+  isSameMonth,
+  isSameYear,
   isBetween,
 }

@@ -36,7 +36,8 @@ function CalendarHeader() {
   const monthName = BookingCalendarUtils.getMonthName(currentDate.getMonth())
   const year = currentDate.getFullYear()
   const shouldDisablePrevMonthButton =
-    BookingCalendarUtils.shouldDisablePrevMonthButton(currentDate)
+    BookingCalendarUtils.isSameMonth(currentDate, new Date()) &&
+    BookingCalendarUtils.isSameYear(currentDate, new Date())
 
   function handlePrevMonth() {
     setCurrentDate(BookingCalendarUtils.subtractMonths(currentDate, 1))
