@@ -1,3 +1,7 @@
+import ChevronRightOutlined from '@mui/icons-material/ChevronRightOutlined'
+import FavoriteBorderOutlined from '@mui/icons-material/FavoriteBorderOutlined'
+import HomeOutlined from '@mui/icons-material/HomeOutlined'
+import InfoOutlined from '@mui/icons-material/InfoOutlined'
 import {
   Box,
   BoxProps,
@@ -9,11 +13,6 @@ import {
   IconButtonProps,
   styled,
 } from '@mui/material'
-import FavoriteBorderOutlined from '@mui/icons-material/FavoriteBorderOutlined'
-import ChevronRightOutlined from '@mui/icons-material/ChevronRightOutlined'
-import HomeOutlined from '@mui/icons-material/HomeOutlined'
-import InfoOutlined from '@mui/icons-material/InfoOutlined'
-import { DateCalendar, DatePicker, DatePickerProps, dateCalendarClasses } from '@mui/x-date-pickers'
 
 export const BreadcrumbContainer = styled(Box)<BoxProps>(({ theme }) => ({
   position: 'relative',
@@ -76,7 +75,8 @@ export const InfoIcon = styled(InfoOutlined)(({ theme }) => ({
 export const OverviewContainer = styled(Card)<CardProps>(({ theme }) => ({
   borderColor: theme.palette.grey[500],
   padding: 34,
-  maxHeight: 775,
+  maxHeight: 850,
+  height: 'fit-content',
 }))
 
 export const BookingButton = styled(Button)<ButtonProps>(({ theme }) => ({
