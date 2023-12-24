@@ -7,7 +7,7 @@ import {
   TypographyProps,
 } from '@mui/material'
 
-export const Content = styled('div')(({ theme }) => ({
+export const Wrapper = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
   borderRadius: 30,
   padding: 24,

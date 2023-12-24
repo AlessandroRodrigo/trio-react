@@ -8,13 +8,13 @@ import {
   ActionButton,
   ActionWrapper,
   CalendarBodyContainer,
-  Content,
   Header,
   MonthDayButton,
   MonthDaysContainer,
   MonthLabel,
   WeekDayLabel,
   WeekDaysContainer,
+  Wrapper,
   YearLabel,
 } from './BookingCalendar.styles'
 import { BookingCalendarUtils } from './BookingCalendar.utils'
@@ -22,11 +22,11 @@ import { BookingCalendarUtils } from './BookingCalendar.utils'
 export default function BookingCalendar() {
   return (
     <CalendarProvider>
-      <Content>
+      <Wrapper>
         <CalendarHeader />
 
         <CalendarBody />
-      </Content>
+      </Wrapper>
     </CalendarProvider>
   )
 }
