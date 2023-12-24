@@ -63,7 +63,9 @@ function isBetween(date: Date, startDate: Date, endDate: Date) {
 }
 
 function getTotalDays(date: TSelectedDate) {
-  return dayjs(date.end).diff(date.start, 'day')
+  const differenceInDays = dayjs(date.end).diff(date.start, 'days')
+  const inclusiveDifference = differenceInDays + 1 // Include the end date in the count
+  return inclusiveDifference
 }
 
 export const BookingCalendarUtils = {
