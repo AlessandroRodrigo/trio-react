@@ -138,7 +138,7 @@ const BikeDetails = ({ bike }: BikeDetailsProps) => {
               <InfoIcon fontSize='small' />
             </Box>
 
-            <Typography>{subTotal} €</Typography>
+            <Typography>{subTotal | 0} €</Typography>
           </PriceRow>
 
           <PriceRow marginTop={1.5} data-testid='bike-overview-single-price'>
@@ -147,7 +147,7 @@ const BikeDetails = ({ bike }: BikeDetailsProps) => {
               <InfoIcon fontSize='small' />
             </Box>
 
-            <Typography>{servicesFee} €</Typography>
+            <Typography>{servicesFee | 0} €</Typography>
           </PriceRow>
 
           <PriceRow marginTop={1.75} data-testid='bike-overview-total'>
@@ -155,7 +155,7 @@ const BikeDetails = ({ bike }: BikeDetailsProps) => {
               Total
             </Typography>
             <Typography variant='h2' fontSize={24} letterSpacing={1}>
-              {total} €
+              {total | 0} €
             </Typography>
           </PriceRow>
 
