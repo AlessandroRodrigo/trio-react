@@ -5,6 +5,10 @@ import BikeType from 'components/BikeType'
 import BookingAddressMap from 'components/BookingAddressMap'
 import Header from 'components/Header'
 import Bike from 'models/Bike'
+import { BookingCalendarContainer } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.container'
+import { TSelectedDate } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
+import { BookingCalendarUtils } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.utils'
+import { useState } from 'react'
 import {
   BookingButton,
   BreadcrumbContainer,
@@ -19,18 +23,22 @@ import {
   PriceRow,
 } from './BikeDetails.styles'
 import { getServicesFee } from './BikeDetails.utils'
-import BookingCalendar from './components/BookingCalendar/BookingCalendar.component'
 
 interface BikeDetailsProps {
   bike?: Bike
 }
 
 const BikeDetails = ({ bike }: BikeDetailsProps) => {
+  const [selectedDate, setSelectedDate] = useState<TSelectedDate>({
+    start: null,
+    end: null,
+  })
   const rateByDay = bike?.rate || 0
   const rateByWeek = rateByDay * 7
 
-  const servicesFee = getServicesFee(rateByDay)
-  const total = rateByDay + servicesFee
+  const subTotal = rateByDay * BookingCalendarUtils.getTotalDays(selectedDate)
+  const servicesFee = getServicesFee(subTotal)
+  const total = subTotal + servicesFee
 
   return (
     <div data-testid='bike-details-page'>
@@ -116,7 +124,7 @@ const BikeDetails = ({ bike }: BikeDetailsProps) => {
             Select date and time
           </Typography>
 
-          <BookingCalendar />
+          <BookingCalendarContainer onChange={setSelectedDate} />
 
           <Typography variant='h2' fontSize={16} marginTop={4} marginBottom={1.25}>
             Booking Overview
@@ -130,7 +138,7 @@ const BikeDetails = ({ bike }: BikeDetailsProps) => {
               <InfoIcon fontSize='small' />
             </Box>
 
-            <Typography>{rateByDay} €</Typography>
+            <Typography>{subTotal} €</Typography>
           </PriceRow>
 
           <PriceRow marginTop={1.5} data-testid='bike-overview-single-price'>
