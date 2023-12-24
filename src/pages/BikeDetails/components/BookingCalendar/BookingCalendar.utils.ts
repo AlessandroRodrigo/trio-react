@@ -12,7 +12,7 @@ function generateDaysOfMonth(date: Date): Date[] {
   const days = []
   let day = startOfMonth
 
-  while (day.isBefore(endOfMonth, 'day')) {
+  while (day.isBefore(endOfMonth, 'day') || day.isSame(endOfMonth, 'day')) {
     days.push(day.toDate())
     day = day.add(1, 'day')
   }
