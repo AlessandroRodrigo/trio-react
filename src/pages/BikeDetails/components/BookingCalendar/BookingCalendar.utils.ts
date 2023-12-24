@@ -19,7 +19,7 @@ function generateDaysOfMonth(date: Date): Date[] {
   return days
 }
 
-function shouldDisableDayButton(day: Date) {
+function isBefore(day: Date) {
   return dayjs(day).isBefore(dayjs(), 'day')
 }
 
@@ -56,7 +56,7 @@ function isBetween(date: Date, startDate: Date, endDate: Date) {
 export const BookingCalendarUtils = {
   getMonthName,
   generateDaysOfMonth,
-  shouldDisableDayButton,
+  isBefore,
   addMonths,
   subtractMonths,
   isSameDay,
