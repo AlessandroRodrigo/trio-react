@@ -130,7 +130,9 @@ describe('BookingCalendar utils', () => {
   it('should disable the previous month button when is current or before current month', () => {
     const input = new Date()
 
-    const output = BookingCalendarUtils.shouldDisablePrevMonthButton(input)
+    const output =
+      BookingCalendarUtils.isSameMonth(input, new Date()) &&
+      BookingCalendarUtils.isSameYear(input, new Date())
 
     expect(output).toBe(true)
   })
@@ -138,7 +140,9 @@ describe('BookingCalendar utils', () => {
   it('should not disable the previous month button when is after current month', () => {
     const input = new Date(2021, 1, 1)
 
-    const output = BookingCalendarUtils.shouldDisablePrevMonthButton(input)
+    const output =
+      BookingCalendarUtils.isSameMonth(input, new Date()) &&
+      BookingCalendarUtils.isSameYear(input, new Date())
 
     expect(output).toBe(false)
   })
@@ -146,7 +150,7 @@ describe('BookingCalendar utils', () => {
   it('should disable day button when is before current day', () => {
     const input = new Date(2021, 0, 1)
 
-    const output = BookingCalendarUtils.shouldDisableDayButton(input)
+    const output = BookingCalendarUtils.isBefore(input)
 
     expect(output).toBe(true)
   })
@@ -154,7 +158,7 @@ describe('BookingCalendar utils', () => {
   it('should not disable day button when is after current day', () => {
     const input = new Date()
 
-    const output = BookingCalendarUtils.shouldDisableDayButton(input)
+    const output = BookingCalendarUtils.isBefore(input)
 
     expect(output).toBe(false)
   })
