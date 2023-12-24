@@ -111,7 +111,7 @@ function CalendarBody() {
             isSelected={isSelected(day)}
             isTail={!!selectedDays.start && BookingCalendarUtils.isSameDay(day, selectedDays.start)}
             isHead={!!selectedDays.end && BookingCalendarUtils.isSameDay(day, selectedDays.end)}
-            disabled={BookingCalendarUtils.shouldDisableDayButton(day)}
+            disabled={BookingCalendarUtils.isBefore(day)}
             key={index}
           >
             {day.getDate()}
