@@ -217,4 +217,15 @@ describe('BookingCalendar utils', () => {
 
     expect(output).toBe(true)
   })
+
+  it.only('should get total days between two dates', () => {
+    const input = {
+      start: new Date(2021, 0, 1),
+      end: new Date(2021, 0, 4),
+    }
+
+    const output = BookingCalendarUtils.getTotalDays(input)
+
+    expect(output).toBe(4)
+  })
 })
