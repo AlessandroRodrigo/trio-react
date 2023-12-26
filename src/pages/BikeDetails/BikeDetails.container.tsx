@@ -1,6 +1,8 @@
 import Bike from 'models/Bike'
+import { TSelectedDate } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
+import apiClient from 'services/api'
 import BikeDetails from './BikeDetails.component'
 
 type StateReceived = {
@@ -9,6 +11,7 @@ type StateReceived = {
 
 const BikeDetailsContainer = () => {
   const { state } = useLocation()
+  const [successfullyBooked, setSuccessfullyBooked] = useState(false)
 
   const [currentBikeData, setCurrentBikeData] = useState<Bike>()
 
@@ -19,7 +22,26 @@ const BikeDetailsContainer = () => {
     }
   }, [])
 
-  return <BikeDetails bike={currentBikeData} />
+  async function handleBooking(selectedDate: TSelectedDate) {
+    const response = await apiClient.post('/rentals', {
+      candidateId: Number(process.env.REACT_APP_BOILERPLATE_CANDIDATE_ID),
+      bikeId: currentBikeData?.id,
+      start: selectedDate.start,
+      end: selectedDate.end,
+    })
+
+    if (response.status === 201) {
+      setSuccessfullyBooked(true)
+    }
+  }
+
+  return (
+    <BikeDetails
+      bike={currentBikeData}
+      onBooking={handleBooking}
+      successfullyBooked={successfullyBooked}
+    />
+  )
 }
 
 export default BikeDetailsContainer
