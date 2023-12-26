@@ -1,4 +1,4 @@
-import { Box, Breadcrumbs, Divider, Link, Typography } from '@mui/material'
+import { Box, Breadcrumbs, Divider, Link, Stack, Typography } from '@mui/material'
 import BikeImageSelector from 'components/BikeImageSelector'
 import BikeSpecs from 'components/BikeSpecs'
 import BikeType from 'components/BikeType'
@@ -26,9 +26,11 @@ import { getServicesFee } from './BikeDetails.utils'
 
 interface BikeDetailsProps {
   bike?: Bike
+  onBooking?: (selectedDate: TSelectedDate) => Promise<void>
+  successfullyBooked?: boolean
 }
 
-const BikeDetails = ({ bike }: BikeDetailsProps) => {
+const BikeDetails = ({ bike, onBooking, successfullyBooked }: BikeDetailsProps) => {
   const [selectedDate, setSelectedDate] = useState<TSelectedDate>({
     start: null,
     end: null,
@@ -120,53 +122,65 @@ const BikeDetails = ({ bike }: BikeDetailsProps) => {
         </DetailsContainer>
 
         <OverviewContainer variant='outlined' data-testid='bike-overview-container'>
-          <Typography variant='h2' fontSize={24} fontWeight={800} marginBottom={1.25}>
-            Select date and time
-          </Typography>
+          {successfullyBooked ? (
+            <SuccessfullyBookedFeedback
+              imageUrls={bike?.imageUrls}
+              name={bike?.name}
+              type={bike?.type}
+            />
+          ) : (
+            <>
+              <Typography variant='h2' fontSize={24} fontWeight={800} marginBottom={1.25}>
+                Select date and time
+              </Typography>
 
-          <BookingCalendarContainer onChange={setSelectedDate} />
+              <BookingCalendarContainer onChange={setSelectedDate} />
 
-          <Typography variant='h2' fontSize={16} marginTop={4} marginBottom={1.25}>
-            Booking Overview
-          </Typography>
+              <Typography variant='h2' fontSize={16} marginTop={4} marginBottom={1.25}>
+                Booking Overview
+              </Typography>
 
-          <Divider />
+              <Divider />
 
-          <PriceRow marginTop={1.75} data-testid='bike-overview-single-price'>
-            <Box display='flex' alignItems='center'>
-              <Typography marginRight={1}>Subtotal</Typography>
-              <InfoIcon fontSize='small' />
-            </Box>
+              <PriceRow marginTop={1.75} data-testid='bike-overview-single-price'>
+                <Box display='flex' alignItems='center'>
+                  <Typography marginRight={1}>Subtotal</Typography>
+                  <InfoIcon fontSize='small' />
+                </Box>
 
-            <Typography>{subTotal | 0} €</Typography>
-          </PriceRow>
+                <Typography>{subTotal | 0} €</Typography>
+              </PriceRow>
 
-          <PriceRow marginTop={1.5} data-testid='bike-overview-single-price'>
-            <Box display='flex' alignItems='center'>
-              <Typography marginRight={1}>Service Fee</Typography>
-              <InfoIcon fontSize='small' />
-            </Box>
+              <PriceRow marginTop={1.5} data-testid='bike-overview-single-price'>
+                <Box display='flex' alignItems='center'>
+                  <Typography marginRight={1}>Service Fee</Typography>
+                  <InfoIcon fontSize='small' />
+                </Box>
 
-            <Typography>{servicesFee | 0} €</Typography>
-          </PriceRow>
+                <Typography>{servicesFee | 0} €</Typography>
+              </PriceRow>
 
-          <PriceRow marginTop={1.75} data-testid='bike-overview-total'>
-            <Typography fontWeight={800} fontSize={16}>
-              Total
-            </Typography>
-            <Typography variant='h2' fontSize={24} letterSpacing={1}>
-              {total | 0} €
-            </Typography>
-          </PriceRow>
+              <PriceRow marginTop={1.75} data-testid='bike-overview-total'>
+                <Typography fontWeight={800} fontSize={16}>
+                  Total
+                </Typography>
+                <Typography variant='h2' fontSize={24} letterSpacing={1}>
+                  {total | 0} €
+                </Typography>
+              </PriceRow>
 
-          <BookingButton
-            fullWidth
-            disableElevation
-            variant='contained'
-            data-testid='bike-booking-button'
-          >
-            Add to booking
-          </BookingButton>
+              <BookingButton
+                fullWidth
+                disableElevation
+                variant='contained'
+                data-testid='bike-booking-button'
+                disabled={!selectedDate.start || !selectedDate.end}
+                onClick={() => onBooking?.(selectedDate)}
+              >
+                Add to booking
+              </BookingButton>
+            </>
+          )}
         </OverviewContainer>
       </Content>
     </div>
@@ -174,3 +188,36 @@ const BikeDetails = ({ bike }: BikeDetailsProps) => {
 }
 
 export default BikeDetails
+
+function SuccessfullyBookedFeedback(bike: Partial<Pick<Bike, 'imageUrls' | 'name' | 'type'>>) {
+  return (
+    <Stack gap='24px' alignItems='center' justifyContent='center'>
+      <Typography fontSize={24} fontWeight={800}>
+        Thank you!
+      </Typography>
+
+      <Typography fontSize={16} fontWeight={600}>
+        Your bike is booked.
+      </Typography>
+
+      <Stack gap='16px' alignItems='center' justifyContent='center'>
+        <img
+          src={bike.imageUrls?.[0]}
+          width={150}
+          height={150}
+          style={{
+            objectFit: 'contain',
+          }}
+        />
+
+        <Stack alignItems='center' justifyContent='center'>
+          <Typography fontSize={18} fontWeight={700}>
+            {bike.name}
+          </Typography>
+
+          <BikeType type={bike.type} />
+        </Stack>
+      </Stack>
+    </Stack>
+  )
+}
