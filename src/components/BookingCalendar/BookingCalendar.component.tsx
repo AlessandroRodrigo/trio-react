@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight } from '@mui/icons-material'
-import { useCalendarContext } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
+import { useCalendarContext } from 'components/BookingCalendar/BookingCalendar.context'
 import { BookingCalendarConstants } from './BookingCalendar.constants'
 import {
   ActionButton,
