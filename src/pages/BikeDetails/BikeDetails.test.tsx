@@ -5,7 +5,7 @@ import BikeDetails from './BikeDetails.component'
 import { SERVICE_FEE_PERCENTAGE } from './BikeDetails.contants'
 import { getServicesFee } from './BikeDetails.utils'
 
-describe.skip('BikeDetails page', () => {
+describe('BikeDetails page', () => {
   beforeEach(() => {
     render(
       <BrowserRouter>
