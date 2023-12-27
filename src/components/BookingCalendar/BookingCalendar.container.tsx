@@ -1,5 +1,5 @@
-import BookingCalendar from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.component'
-import { CalendarProvider } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
+import BookingCalendar from 'components/BookingCalendar/BookingCalendar.component'
+import { CalendarProvider } from 'components/BookingCalendar/BookingCalendar.context'
 
 type Props = {
   onChange: Parameters<typeof CalendarProvider>[0]['onChange']
