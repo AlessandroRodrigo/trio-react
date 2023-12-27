@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import BookingCalendar from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.component'
-import { CalendarProvider } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
-import { BookingCalendarUtils } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.utils'
+import BookingCalendar from 'components/BookingCalendar/BookingCalendar.component'
+import { CalendarProvider } from 'components/BookingCalendar/BookingCalendar.context'
+import { BookingCalendarUtils } from 'components/BookingCalendar/BookingCalendar.utils'
 import { BrowserRouter } from 'react-router-dom'
 
 describe('BookingCalendar component', () => {
