@@ -1,5 +1,6 @@
 import { ChevronLeft, ChevronRight } from '@mui/icons-material'
 import { useCalendarContext } from 'components/BookingCalendar/BookingCalendar.context'
+import { useMemo } from 'react'
 import { BookingCalendarConstants } from './BookingCalendar.constants'
 import {
   ActionButton,
@@ -68,7 +69,7 @@ function CalendarHeader() {
 
 function CalendarBody() {
   const { currentDate, selectedDays, setSelectedDays, onChange } = useCalendarContext()
-  const daysOfMonth = BookingCalendarUtils.generateDaysOfMonth(currentDate)
+  const daysOfMonth = useMemo(() => BookingCalendarUtils.generateDaysOfMonth(currentDate), [])
 
   function handleSelectDate(date: Date) {
     if (selectedDays.start === null) {
