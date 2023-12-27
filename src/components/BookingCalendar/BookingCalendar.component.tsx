@@ -69,7 +69,10 @@ function CalendarHeader() {
 
 function CalendarBody() {
   const { currentDate, selectedDays, setSelectedDays, onChange } = useCalendarContext()
-  const daysOfMonth = useMemo(() => BookingCalendarUtils.generateDaysOfMonth(currentDate), [])
+  const daysOfMonth = useMemo(
+    () => BookingCalendarUtils.generateDaysOfMonth(currentDate),
+    [currentDate],
+  )
 
   function handleSelectDate(date: Date) {
     if (selectedDays.start === null) {
