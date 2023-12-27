@@ -1,5 +1,5 @@
+import { TSelectedDate } from 'components/BookingCalendar/BookingCalendar.context'
 import Bike from 'models/Bike'
-import { TSelectedDate } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
 import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import apiClient from 'services/api'
