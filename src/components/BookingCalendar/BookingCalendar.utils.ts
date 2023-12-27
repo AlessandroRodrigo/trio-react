@@ -1,5 +1,5 @@
+import { TSelectedDate } from 'components/BookingCalendar/BookingCalendar.context'
 import dayjs from 'dayjs'
-import { TSelectedDate } from 'pages/BikeDetails/components/BookingCalendar/BookingCalendar.context'
 
 function getMonthName(monthNumber: number) {
   return new Date(0, monthNumber).toLocaleString('en', { month: 'long' })
